@@ -1,0 +1,11 @@
+Step1: Load the Ipynb file Linked in the GitHub Repo with colab.
+Step2: Upload the context file or book in .TXT/PDF format.
+Step3: Frame the questions you want to ask to the model and add them to a list in the first cell of the code.
+Step4: Login to the Hugging Face platform with you token and make sure to take access of the model from the website.
+Step4: Run the code and select the numeric representation of your file type as mentioned in the cli.
+Step5: Wait for the model to run and load the shards, response will be generated.
+Step6: For additional Queries add the new questions in the existing list and run the model again.
+Step7: The model is Cached and saved for future use.
+
+NOTE- there is an extra cell in the end which can be used to have a chat bot experience and questions can be asked one after the other instead of appending in a list.
+
