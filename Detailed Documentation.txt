@@ -1,0 +1,84 @@
+Mistral QA Bot: Detailed Documentation 
+
+
+1. Introduction
+Mistral QA Bot is a question-answering system built using the Mistral-7B-Instruct model. It allows users to extract answers from provided textual content, supporting both text and PDF files as input. The bot utilizes quantization techniques to optimize performance and ensure efficient inference.
+
+2. Approach
+The bot follows these steps to generate responses:
+1.  Input Handling:  Reads context from a text file, a PDF, or user input.
+2.  Prompt Formatting:  Structures input using a specific template for better response generation.
+3.  Model Processing:  Uses a quantized Mistral model to generate responses.
+4.  Response Extraction:  Extracts the generated answer and formats it properly.
+5.  Output Presentation:  Returns a structured output containing the question, answer, and model metadata.
+
+3. Model Architecture
+The system is based on the  Mistral-7B-Instruct-v0.1  model, a large-scale causal language model optimized for instruction following.
+
+Key Features:
+-  Quantization:  Utilizes  BitsAndBytesConfig  to load the model in 4-bit precision, reducing memory usage while maintaining accuracy.
+-  Device Mapping:  Uses  device_map="auto"  to efficiently distribute computations across available GPUs/CPUs.
+-  Tokenization:  Employs Hugging Face’s  AutoTokenizer  for text processing.
+-  Context-Aware Generation:  The model is prompted with structured context before answering questions.
+
+4. Preprocessing Techniques
+       File Handling:
+-  Text Files:  The function  read_file_content(filepath)  reads and returns text from  .txt  files.
+-  PDF Files:  The function  read_pdf_content(filepath)  extracts text using the  PyPDF2  library.
+-  Direct Input:  The bot also accepts manually entered context.
+
+
+Prompt Formatting:
+The prompt is structured to guide the model towards generating high-quality responses:
+   
+<s>[INST] Answer the following question based on the given context.
+Provide a detailed and accurate response.
+
+Context:
+{context}
+
+Question: {question}
+
+Answer: [/INST]
+   
+This ensures:
+-  Clear separation of context and query 
+-  Model is explicitly instructed to base answers on the provided context 
+
+
+
+
+5. Model Inference
+
+The  generate_answer  method handles response generation:
+-  Tokenization:  Converts input into model-compatible format.
+-  Generation Parameters: 
+  -  max_length=1000, min_length=50 : Ensures detailed responses.
+  -  temperature=0.7, top_p=0.9 : Encourages diversity while maintaining coherence.
+  -  do_sample=True : Enables stochastic sampling.
+  -  num_return_sequences=1 : Ensures a single response.
+-  Decoding:  Converts the output tokens back into a readable string and removes unnecessary special tokens.
+
+
+
+6. Evaluation Methodology
+
+       Qualitative Evaluation:
+- Responses are manually checked for  accuracy, coherence, and relevance .
+- Common failure cases are analyzed to refine prompts and improve model performance.
+
+       Performance Metrics:
+-  Token Efficiency:  Checked by monitoring inference time and memory consumption.
+-  Response Quality:  Evaluated based on factual correctness, logical consistency, and informativeness.
+-  Failure Handling:  Ensures meaningful fallback responses for out-of-context or ambiguous queries.
+
+
+
+7. Execution Flow
+
+1. The user selects input type (PDF, text file, or direct input).
+2. The system reads the context and processes it.
+3. Questions are passed to  answer_question  for response generation.
+4. Answers are displayed in a structured format.
+
+  

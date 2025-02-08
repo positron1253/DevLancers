@@ -1,0 +1,25 @@
+The problem statement required me to develop a Small Language Model (SLM) that can take a book as context and accurately answer any questions based on it. The model should be capable of comprehending, retrieving, and generating responses from the provided text.
+
+The First step involved in the task was to generate text from multiple types of possible upload formats such as txt file and pdf files, I used the os lib to read the text files and handled exceptions, similarly I used the py2pdf lib to extract text from the pdf files 
+
+Considering all the required parameters and features the first task was to choose a model capable of generating, comprehending and retrieving textual data.
+I chose one of the best in the segment models from mistral.ai for the task considering the accuracy and performance showcased by the model.
+
+Further I choose the opensource 7 billion parameter model to perform the task as the task did not require advanced understanding and logical reasoning and only dealt with understanding relations between textual vectors and embeddings.
+
+I further used the hugging face framework to login and import the model from the platform.
+
+I used the transformer library to generate word embeddings and load the model and tokenized the text in a format suitable for the mistral model to understand.
+
+The performance and speed of response of the model was very slow, due to which I used 4 bit quantization to improve the speed of response generation and reduce the load.
+
+Then I formatted the prompt passed to the model before understanding the context to enhance the accuracy and meaning of the response generated from the model.
+
+The model then takes in a context file as input and converts it into a mistral readable format by tokenizing and encoding, then a set of questions related to the context are passed to the model.
+
+The fine tuned model then returns the accurate answers to the questions.
+
+The model is the cached and saved to avoid loading every time for the same context.
+
+
+*Note- Use Google colab to run the model for a faster response time and efficient loading as LLM load faster on the platform compared to local system*
